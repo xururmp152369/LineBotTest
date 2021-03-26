@@ -31,3 +31,5 @@ namespace LineBotTest1.Controllers
         }
     }
 }
+//https://linebottestapi.azurewebsites.net/api/line
+//
