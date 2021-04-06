@@ -1,5 +1,5 @@
 ﻿using LineBotTest1.FlexMessages;
-using LineBotTest1.Interfaces;
+using LineBotTest1.Utility;
 using NetCoreLineBotSDK;
 using NetCoreLineBotSDK.Enums;
 using NetCoreLineBotSDK.Interfaces;
@@ -19,9 +19,11 @@ namespace LineBotTest1.Apps
     public class LineBotSampleApp : LineBotApp
     {
         private readonly ILineMessageUtility lineMessageUtility;
-        public LineBotSampleApp(ILineMessageUtility _lineMessageUtility) : base(_lineMessageUtility)
+        private readonly QnAMakerUtility qnAMakerUtility;
+        public LineBotSampleApp(ILineMessageUtility _lineMessageUtility, QnAMakerUtility _qnAMakerUtility) : base(_lineMessageUtility)
         {
             lineMessageUtility = _lineMessageUtility;
+            qnAMakerUtility = _qnAMakerUtility;
         }
 
         protected override async Task OnMessageAsync(LineEvent ev)
@@ -76,7 +78,9 @@ namespace LineBotTest1.Apps
                     case "開車提醒":                                                
                         await lineMessageUtility.ReplyMessageAsync(ev.replyToken, "切記開車不喝酒，如要喝酒請搭乘Taxi前來，安全第一 PuiPui" + Environment.NewLine + "讚(ゝ∀･)b");
                         break;                                                      
-                    default:                                                        
+                    default:
+                        var QnAResponse = await qnAMakerUtility.Get(question: msg , scope: 50);
+                        if (QnAResponse != null) await lineMessageUtility.ReplyMessageAsync(ev.replyToken, QnAResponse.Answer);
                         await lineMessageUtility.ReplyMessageAsync(ev.replyToken, new List<IMessage> { HelpMessageQuickReply_fun() });
                         break;
                 }

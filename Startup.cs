@@ -1,3 +1,4 @@
+using LineBotTest1.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,9 @@ namespace LineBotTest1
             services.AddControllers();
 
             services.AddLineBotSDK(Configuration);
+
+            services.AddScoped<QnAMakerUtility>();
+            services.AddScoped<AzureTableUtility>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
