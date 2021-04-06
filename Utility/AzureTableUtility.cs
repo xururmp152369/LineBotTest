@@ -11,7 +11,7 @@ namespace LineBotTest1.Utility
     {
         public static async Task<CloudTable>  CreateTableAsync(string tableName)
         {
-            string storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=linebotdb;AccountKey=1NdHRW6AZQCciP6LcBJgeh2zHT7KtRcB9xkKg91qQd6W8kyBp8h0n3klcuZWKmdMLQ5pkB0cW67sbBHqhq1uPQ==;TableEndpoint=https://linebotdb.table.cosmos.azure.com:443/;";
+            string storageConnectionString = "Your Connect String";
             // Storage 的 連線字串，來源可以用appSetting.json搭配 IOption 注入
             CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(storageConnectionString);
             // 新增 Azure Table
